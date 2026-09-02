@@ -1,0 +1,10 @@
+{
+  "adminUsers": [
+    {
+      "username": "Luxora",
+      "passwordHash": "8a285eafeb281bdf507bdef29f4f74701370d4ffcf1e1a65d4e63a158e08ef93cbd8285a444aa0b57b5f7130703955aa559f637591d900fce160fb045542f141",
+      "salt": "3a1b098e1c82f0fddf10f7272fda20c1"
+    }
+  ],
+  "maxSessions": 5
+}
