@@ -3,7 +3,7 @@ services:
     name: luxora-global
     runtime: node
     buildCommand: npm install && cd backend && npm install && cd .. && npm run build
-    startCommand: npm start
+    startCommand: cd backend && npm install && cd .. && npm start
     envVars:
       - key: NODE_ENV
         value: production
