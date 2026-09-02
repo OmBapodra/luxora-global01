@@ -10,11 +10,16 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 const EXCEL_FILE = join(__dirname, 'inquiries.xlsx');
 const ADMIN_PAGE = join(__dirname, 'admin.html');
 const CONFIG_FILE = join(__dirname, 'config.json');
+
+if (!existsSync(CONFIG_FILE)) {
+  console.error('config.json not found. Run setup first or set ADMIN_USERNAME/ADMIN_PASSWORD env vars.');
+  process.exit(1);
+}
 
 const config = JSON.parse(readFileSync(CONFIG_FILE, 'utf-8'));
 const MAX_SESSIONS = config.maxSessions || 5;

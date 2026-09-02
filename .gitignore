@@ -12,6 +12,12 @@ dist
 dist-ssr
 *.local
 
+# Backend sensitive files
+backend/node_modules
+backend/config.json
+backend/inquiries.xlsx
+backend/logo.png
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

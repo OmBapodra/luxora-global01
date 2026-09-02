@@ -8,7 +8,7 @@
     "dev:frontend": "vite",
     "dev:backend": "node --watch backend/server.js",
     "build": "tsc -b && vite build",
-    "start": "node backend/server.js",
+    "start": "node backend/setup.js && node backend/server.js",
     "lint": "oxlint",
     "preview": "vite preview"
   },

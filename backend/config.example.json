@@ -1,0 +1,10 @@
+{
+  "adminUsers": [
+    {
+      "username": "YOUR_USERNAME",
+      "passwordHash": "GENERATE_WITH_HASH_SCRIPT",
+      "salt": "GENERATE_WITH_HASH_SCRIPT"
+    }
+  ],
+  "maxSessions": 5
+}
