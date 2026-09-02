@@ -9,22 +9,23 @@ const __dirname = dirname(__filename);
 
 const CONFIG_FILE = join(__dirname, 'config.json');
 
-// If config.json already exists, skip
-if (existsSync(CONFIG_FILE)) {
-  console.log('config.json already exists, skipping creation.');
-  process.exit(0);
-}
-
-// Create config from environment variables
-const username = process.env.ADMIN_USERNAME || 'admin';
-const password = process.env.ADMIN_PASSWORD || 'changeme123';
-
-const salt = crypto.randomBytes(16).toString('hex');
-crypto.scrypt(password, salt, 64, (err, derivedKey) => {
-  if (err) {
-    console.error('Error generating hash:', err);
-    process.exit(1);
+async function main() {
+  if (existsSync(CONFIG_FILE)) {
+    console.log('config.json already exists, skipping creation.');
+    process.exit(0);
   }
+
+  const username = process.env.ADMIN_USERNAME || 'admin';
+  const password = process.env.ADMIN_PASSWORD || 'changeme123';
+
+  const salt = crypto.randomBytes(16).toString('hex');
+  const derivedKey = await new Promise((resolve, reject) => {
+    crypto.scrypt(password, salt, 64, (err, key) => {
+      if (err) reject(err);
+      else resolve(key);
+    });
+  });
+  
   const config = {
     adminUsers: [{
       username,
@@ -35,4 +36,9 @@ crypto.scrypt(password, salt, 64, (err, derivedKey) => {
   };
   writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2));
   console.log('config.json created from environment variables.');
+}
+
+main().catch(err => {
+  console.error('Error generating hash:', err);
+  process.exit(1);
 });
